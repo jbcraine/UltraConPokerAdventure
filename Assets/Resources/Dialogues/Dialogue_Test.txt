@@ -1,0 +1,63 @@
+#entry
+*D*
+(CONDITION_C)Sorry! Not right now.=>player_choice
+This is a line.
+This is another line.
+This is a third line.
+*R*
+(TRUE)=>dialogue_2
+
+#dialogue_2
+*D*
+This is another dialogue.
+This is a line in another dialogue.
+(CONDITION_A)This is a secret line. Don't tell anyone!
+*R*
+(CONDITION_A)(CONDITION_B)=>dialogue_5
+(CONDITION_A)=>dialogue_3
+(TRUE)=>dialogue_4
+
+#dialogue_3
+*D*
+Condition is true.
+*R*
+(TRUE)=>FINISH
+
+#dialogue_4
+*D*
+Condition is false.
+*R*
+(TRUE)=>FINISH
+
+#dialogue_5
+*D*
+Super Secret Response!
+*R*
+(TRUE)=>FINISH
+
+#player_choice
+*C*
+How are you?=>reaction_1
+Where am I?=>reaction_2
+Goodbye.=>reaction_3
+*/C*
+
+#reaction_1
+*D*
+I feel great!
+*R*
+(TRUE)=>player_choice
+
+#reaction_2
+*D*
+I don't know.
+Something something something.
+How are you?
+*R*
+(TRUE)=>player_choice
+
+#reaction_3
+*D*
+Oh. Goodbye.
+*R*
+(TRUE)=>FINISH

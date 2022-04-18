@@ -1,0 +1,103 @@
+#entry
+*R*
+(TRUE)=>red_entry
+
+#red_entry
+*D*
+Hi! I'm Red!
+*R*
+(TRUE)=>green_entry
+
+#green_entry
+*D*
+And I'm Green!
+I'm way cooler than Red.
+*R*
+(TRUE)=>red_response1
+
+#red_response1
+*D*
+Wrong! I'm the coolest.
+*R*
+(TRUE)=>green_response1
+
+#green_response1
+*D*
+Player, what do you think? 
+Which of us is the coolest?
+*R*
+(TRUE)=>player_choice
+
+#player_choice
+*BEGIN*
+*C*
+Red is the coolest.=>red_coolest
+Green is the coolest.=>green_coolest
+I don't like either of you.=>red_neither_coolest
+*/C*
+*Q*
+Green=>green_query_green
+Red=>red_query_red
+Cool=>red_query_cool
+*/Q*
+*END*
+
+#red_coolest
+*D*
+Ha! I knew it!
+*R*
+(TRUE)=>FINISH
+
+#green_coolest
+*D*
+You heard {NAME}!
+Suck on that!
+*R*
+(TRUE)=>FINISH
+
+#red_neither_coolest
+*D*
+Wow. Really?
+*R*
+(TRUE)=>green_neither_coolest
+
+#green_neither_coolest
+*D*
+That's real pompous, dude.
+*R*
+(TRUE)=>FINISH
+
+#red_query_red
+*D*
+I'm Red. I just told you that.
+I'm cool.
+*R*
+(TRUE)=>green_query_red
+
+#green_query_red
+*D*
+No, you're not.
+*R*
+(TRUE)=>player_choice
+
+#green_query_green
+*D*
+I'm Green. I thought you knew that.
+*R*
+(TRUE)=>player_choice
+
+#red_query_cool
+*D*
+Cool? You don't know what cool means?
+Alright. Ill let you in.
+I'm cool. That guy? Green? He's lame. 
+He thinks he's cool, but he isn't.
+*R*
+(TRUE)=>green_query_cool
+
+#green_query_cool
+*D*
+If he thinks something is cool, then it can't be cool.
+That's the definition of cool. Anything he dislikes is actually cool.
+*R*
+(TRUE)=>player_choice

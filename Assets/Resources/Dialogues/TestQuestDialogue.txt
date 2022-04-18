@@ -1,0 +1,39 @@
+#entry
+*R*
+(OBJECTIVESTATE TESTQUEST FINISHQUEST ACTIVATED)=>npc_testquestfinished
+(OBJECTIVESTATE TESTQUEST STARTQUEST COMPLETED)=>npc_testquestincomplete
+(TRUE)=>npc_entry
+
+#npc_entry
+*D*
+Welcome to Test Quest!
+I have a small task for you.
+*R*
+(TRUE)=>npc_entry_2
+
+#npc_entry_2
+*D*
+Just press the green button twice, and then press the red button once. And you're done!
+Return to me when you're finished.
+*R*
+(TRUE)=>FINISH
+
+#npc_testquestincomplete
+*D*
+Please complete your assigned task.
+Do you want me to explain again?
+*R*
+(TRUE)=>explainagain
+
+#explainagain
+*C*
+Please explain again.=>npc_entry_2
+No thanks.=>FINISH
+*/C*
+
+#npc_testquestfinished
+*D*
+Congratulations! Quest Complete!
+*R*
+(TRUE)=>FINISH 
+
