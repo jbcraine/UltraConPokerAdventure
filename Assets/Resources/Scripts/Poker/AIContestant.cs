@@ -12,7 +12,7 @@ public class AIContestant : Contestant
     }
     public override void MakeDecision(PokerState state)
     {
-        return _character.MakeDecision();
+        _character.MakeDecision();
     }
 
 

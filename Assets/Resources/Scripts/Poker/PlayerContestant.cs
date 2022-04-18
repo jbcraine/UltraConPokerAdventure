@@ -11,7 +11,7 @@ public class PlayerContestant : Contestant
 
     private void Awake()
     {
-        _isPlayer = true;
+        
     }
 
     public override void ChangeMoney(int money)

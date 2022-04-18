@@ -23,5 +23,5 @@ public abstract class PokerAI : MonoBehaviour
     protected abstract float CharacterInfluence(float handStrength);
 
     //Use the modifed hand strength to make a decision for this character
-    public abstract IPokerCommand MakeDecision();
+    public abstract PokerCommand MakeDecision();
 }

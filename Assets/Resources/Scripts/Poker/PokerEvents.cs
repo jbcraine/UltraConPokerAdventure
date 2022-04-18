@@ -4,7 +4,7 @@ public delegate void WonPotEventHandler(object sender, WonPotEventArgs p);
 public delegate void RoundStartedEventHandler(object sender, int startingMoney);
 public delegate void EndRoundEventHandler(object sender);
 public delegate void PotChangedEventHandler(object sender, int pot);
-public delegate IPokerCommand PlayerMadeDecisionHandler(object sender, IPokerCommand decision);
+public delegate PokerCommand PlayerMadeDecisionHandler(object sender, PokerCommand decision);
 public delegate void PhaseStartEventHandler(object sender);
 public delegate void MoneyEventHandler(object sender, int money);
 public delegate void MatchEndEventHandler(object sender, string winnerName);

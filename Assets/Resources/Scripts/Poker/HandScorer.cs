@@ -26,141 +26,159 @@ public class HandScorer
     {
         (int[] bestHand, HandName name) = Analyzer.DetermineHand(hand);
         int rank;
-        float score;
-        string handTitle;
+        HandInfo info = HandInfo.Empty;
+        info.Cards = bestHand;
+
         //Now we know what the best hand the contestant has is, as well as the cards that comprise it.
         //Now, it just needs to be scored to be compared to other contestant's hands
         switch (name)
         {
             case HandName.RoyalFlush:
-                return (HasRoyalFlush(), "Royal Flush", bestHand);
+                info.HandScore = HasRoyalFlush();
+                info.HandName = "Royal Flush";
+                break;
 
             case HandName.StraightFlush:
-                return (HasStraightFlush(bestHand), "Straight Flush", bestHand);
+                info.HandScore = HasStraightFlush(bestHand);
+                info.HandName = "Straight Flush";
+                break;
 
             case HandName.FourOfAKind:
-                return (HasFourOfAKind(bestHand), "Four of a Kind", bestHand);
+                info.HandScore = HasFourOfAKind(bestHand);
+                info.HandName = "Four Of A Kind";
+                break;
 
             case HandName.FullHouse:
-                return (HasFullHouse(bestHand), "Full House", bestHand);
+                info.HandScore = HasFullHouse(bestHand);
+                info.HandName = "Full House";
+                break;
 
             case HandName.Flush:
-                return (HasFlush(bestHand), "Flush", bestHand);
+                info.HandScore = HasFlush(bestHand);
+                info.HandName = "Flush";
+                break;
 
             case HandName.Straight:
-                return (HasStraight(bestHand), "Straight", bestHand);
+                info.HandScore = HasFlush(bestHand);
+                info.HandName = "Straight";
+                break;
 
             case HandName.ThreeOfAKind:
-                return (HasThreeOfAKind(bestHand), "Three of a Kind", bestHand);
+                info.HandScore = HasThreeOfAKind(bestHand);
+                info.HandName = "Three Of A Kind";
+                break;
 
             case HandName.TwoPair:
-                return (HasTwoPair(bestHand), "Two Pair", bestHand);
+                info.HandScore = HasTwoPair(bestHand);
+                info.HandName = "Two Pair";
+                break;
 
             case HandName.Pair:
                 rank = bestHand[0] % 13;
-                score = HasPair(bestHand);
+                info.HandScore = HasPair(bestHand);
                 switch (rank)
                 {
                     case 0:
-                        handTitle = "Pair of Twos";
+                        info.HandName = "Pair Of Twos";
                         break;
                     case 1:
-                        handTitle = "Pair of Threes";
+                        info.HandName = "Pair Of Threes";
                         break;
                     case 2:
-                        handTitle = "Pair of Fours";
+                        info.HandName = "Pair Of Fours";
                         break;
                     case 3:
-                        handTitle = "Pair of Fives";
+                        info.HandName = "Pair Of Fives";
                         break;
                     case 4:
-                        handTitle = "Pair of Sixes";
+                        info.HandName = "Pair Of Sixes";
                         break;
                     case 5:
-                        handTitle = "Pair of Sevens";
+                        info.HandName = "Pair Of Sevens";
                         break;
                     case 6:
-                        handTitle = "Pair of Eights";
+                        info.HandName = "Pair Of Eights";
                         break;
                     case 7:
-                        handTitle = "Pair of Nines";
+                        info.HandName = "Pair Of Nines";
                         break;
                     case 8:
-                        handTitle = "Pair of Tens";
+                        info.HandName = "Pair Of Tens";
                         break;
                     case 9:
-                        handTitle = "Pair of Jacks";
+                        info.HandName = "Pair Of Jacks";
                         break;
                     case 10:
-                        handTitle = "Pair of Queens";
+                        info.HandName = "Pair Of Queens";
                         break;
                     case 11:
-                        handTitle = "Pair of Kings";
+                        info.HandName = "Pair Of Kings";
                         break;
                     case 12:
-                        handTitle = "Pair of Aces";
+                        info.HandName = "Pair Of Aces";
                         break;
                     default:
-                        handTitle = "Someting went wrong in pair";
+                        info.HandName = "Someting went wrong in pair";
                         break;
                 }
 
-                return (score, handTitle, bestHand);
+                break;
 
             case HandName.High:
                 rank = bestHand[0] % 13;
-                score = CardRankScore(bestHand, false);
+                info.HandScore = CardRankScore(bestHand, false);
                 switch (rank)
                 {
                     case 0:
-                        handTitle = "Two High";
+                        info.HandName = "Two High";
                         break;
                     case 1:
-                        handTitle = "Three High";
+                        info.HandName = "Three High";
                         break;
                     case 2:
-                        handTitle = "Four High";
+                        info.HandName = "Four High";
                         break;
                     case 3:
-                        handTitle = "Five High";
+                        info.HandName = "Five High";
                         break;
                     case 4:
-                        handTitle = "Six High";
+                        info.HandName = "Six High";
                         break;
                     case 5:
-                        handTitle = "Seven High";
+                        info.HandName = "Seven High";
                         break;
                     case 6:
-                        handTitle = "Eight High";
+                        info.HandName = "Eight High";
                         break;
                     case 7:
-                        handTitle = "Nine High";
+                        info.HandName = "Nine High";
                         break;
                     case 8:
-                        handTitle = "Ten High";
+                        info.HandName = "Ten High";
                         break;
                     case 9:
-                        handTitle = "Jack High";
+                        info.HandName = "Jack High";
                         break;
                     case 10:
-                        handTitle = "Queen High";
+                        info.HandName = "Queen High";
                         break;
                     case 11:
-                        handTitle = "King High";
+                        info.HandName = "King High";
                         break;
                     case 12:
-                        handTitle = "Ace High";
+                        info.HandName = "Ace High";
                         break;
                     default:
-                        handTitle = "Something went wrong in high";
+                        info.HandName = "Something went wrong in high";
                         break;
                 }
-                return (score, handTitle, bestHand);
+                break;
 
             default:
+                info = HandInfo.Empty;
                 break;
         }
-        return (0, null, null);
+        return info;
     }
 
     //Return 900
