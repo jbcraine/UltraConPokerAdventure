@@ -4,7 +4,6 @@ using UnityEngine;
 
 public abstract class PokerDecisionInfo
 {
-    public Contestant contestant;
     public PokerDecisionEnum moveType;
 
 }

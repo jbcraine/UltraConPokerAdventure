@@ -1,8 +1,7 @@
 public class CheckDecisionInfo : PokerDecisionInfo
 {
-    public CheckDecisionInfo(Contestant contestant)
+    public CheckDecisionInfo()
     {
         moveType = PokerDecisionEnum.CHECK;
-        this.contestant = contestant;
     }
 }

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerContestant : Contestant
+public class PlayerContestantController : ContestantController
 {
     //Include a event to deactivate some UI features once the player makes a decision
 
@@ -22,24 +22,6 @@ public class PlayerContestant : Contestant
         HandFilled += ui.SetPlayerCards;
     }
 
-    public override void ChangeMoney(long money)
-    {
-        Debug.Log("Money: " + money + "+" + _money);
-        _money += money;
-        if (_money < 0)
-            _money = 0;
-
-        //Debug.Log("Money after: " + _money);
-
-        MoneyChanged(this, _money);
-    }
-
-    public override void FillHand(List<Card> cards)
-    {
-        base.FillHand(cards);
-        HandFilled?.Invoke(cards);
-
-    }
 
     public override void MakeDecision(PokerState state)
     {

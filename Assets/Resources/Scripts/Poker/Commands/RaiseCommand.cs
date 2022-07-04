@@ -4,13 +4,11 @@ using UnityEngine;
 
 public class RaiseCommandArgs
 {
-    public Contestant Contestant;
     public long RaisedBet;
     public PokerType Game;
 
-    public RaiseCommandArgs(Contestant c, long r, PokerType g)
+    public RaiseCommandArgs(long r, PokerType g)
     {
-        Contestant = c;
         RaisedBet = r;
         Game = g;
     }

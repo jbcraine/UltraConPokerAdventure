@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AIContestant : Contestant
+public class AIContestantController : ContestantController
 {
     [SerializeField] private PokerAI _AI;
     protected bool[] knownCards;
@@ -19,17 +19,9 @@ public class AIContestant : Contestant
         _AI.Initialize(scorer, this);
     }
 
-    public override void FillHand(List<Card> cards)
-    {
-        base.FillHand(cards);
-        foreach (Card card in cards)
-        {
-            AddCardToKnownCards(card);
-        }
-    }
     public override void MakeDecision(PokerState state)
     {
-        long decision = _AI.MakeDecision(state, state.Game.ContestantsRemainingInRound, knownCards);
+        long decision = _AI.MakeDecision(state, _model, state.Game.ContestantsRemainingInRound, knownCards);
         if (decision == -1)
         {
             DecisionMade(Fold(state));

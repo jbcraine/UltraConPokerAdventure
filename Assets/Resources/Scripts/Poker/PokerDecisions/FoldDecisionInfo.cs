@@ -1,8 +1,7 @@
 public class FoldDecisionInfo : PokerDecisionInfo
 {
-    public FoldDecisionInfo(Contestant contestant)
+    public FoldDecisionInfo()
     {
         moveType = PokerDecisionEnum.FOLD;
-        this.contestant = contestant;
     }
 }

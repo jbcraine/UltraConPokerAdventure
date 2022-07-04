@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class AlwaysCallContestant : AIContestant
+public class AlwaysCallContestant : AIContestantController
 {
     public override void MakeDecision(PokerState state)
     {

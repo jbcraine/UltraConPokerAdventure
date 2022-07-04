@@ -2,25 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public delegate void ContestantDecisionEventHandler(PokerCommand decision);
-public enum ContestantStatus
-{
-    None = 0b0000,
-    Waiting = 0b0001,
-    Called = 0b0010,
-    Folded = 0b0100,
-    Eliminated = 0b1000
 
-}
 public abstract class Contestant : MonoBehaviour
 {
     [SerializeField] protected string _contestantName;
-    protected Hand _hand;
-
-    //The money that the contestant has left available to wager in a round
-    protected long _money;
-    //The money that the contestant has already wagered in a round
-    protected long _betMoney;
+    protected ContestantModel _model;
+    protected ContestantController _controller;
     protected ContestantStatus _status;
     protected HandInfo _handInfo;
     protected HandScorer _handScorer;
@@ -28,14 +15,14 @@ public abstract class Contestant : MonoBehaviour
 
     public long Money
     {
-        get { return _money; }
-        set { _money = value; }
+        get { return _model.Money; }
+        set { _model.Money = value; }
     }
 
     public long CurrentlyWageredMoney
     {
-        get { return _betMoney; }
-        set { _betMoney = value; }
+        get { return _model.CurrentlyWageredMoney; }
+        set { _model.CurrentlyWageredMoney = value; }
     }
 
     public long TotalMoney
@@ -45,7 +32,7 @@ public abstract class Contestant : MonoBehaviour
 
     public Hand Hand
     {
-        get { return _hand; }
+        get { return _model.Hand; }
     }
 
     public ContestantStatus Status
@@ -98,94 +85,25 @@ public abstract class Contestant : MonoBehaviour
     {
         _handScorer = scorer;
     }
-    public virtual void FillHand(List<Card> cards)
-    {
-        if (_hand == null)
-            _hand = new Hand(cards);
-        else
-        {
-            foreach (Card card in cards)
-            {
-                //Debug.Log(card.value + " of " + card.suit);
-                _hand.AddCard(card);
-            }
-        }
-    }
-
-    protected virtual PokerCommand Raise(long raisedBet, PokerState state)
-    {
-        //Make sure the raisedBet is greater than the currentBet
-        if (raisedBet <= state.CurrentBet)
-        {
-            return Call(state);
-        }
-        //Make sure the contestant cannot bet more money than then have
-        raisedBet = raisedBet >= TotalMoney ? TotalMoney : raisedBet;
-
-        long contribution = raisedBet - _betMoney;
-
-        RaiseCommand raise = new RaiseCommand(new RaiseCommandArgs(this, raisedBet, state.Game));
-        DecisionMade(raise);
-        ChangeMoney(-contribution);
-        _betMoney += contribution;
-        Status = ContestantStatus.Called;
-        return raise;
-    }
-   
-    protected virtual PokerCommand Call(PokerState state)
-    {
-        long contribution = state.CurrentBet - _betMoney;
-        if (contribution == 0)
-            return Check(state);
-
-        //If the contestant does not have enough money to meet the call, then offer whatever money the contestant has left
-        contribution = contribution <= Money ? Money : contribution;
-
-        CallCommand call = new CallCommand(new CallCommandArgs(this, contribution, state.Game));
-        DecisionMade(call);
-        ChangeMoney(-contribution);
-        _betMoney += contribution;
-        Status = ContestantStatus.Called;
-        return call;
-    }
-
-    protected virtual PokerCommand Check(PokerState state)
-    {
-        CheckCommand check = new CheckCommand(new CheckCommandArgs(this, state.Game));
-        DecisionMade(check);
-        Status = ContestantStatus.Called;
-        return check;
-    }
-
-    protected virtual PokerCommand Fold(PokerState state)
-    {
-        FoldCommand fold = new FoldCommand(new FoldCommandArgs(this, state.Game));
-        DecisionMade(fold);
-        Status = ContestantStatus.Folded;
-        return fold;
-    }
-
-    public virtual void ChangeMoney(long money)
-    {
-        _money += money;
-        if (_money < 0)
-            _money = 0;
-    }
-
-    public void ResetBet()
-    {
-        _betMoney = 0;
-    }
 
     public virtual void DetermineScore()
     {
-        _handInfo = _handScorer.ScoreHand(_hand);
+        _handInfo = _handScorer.ScoreHand(Hand);
     }
 
     public virtual void MakeDecision(PokerState gameState)
     {
-        //DecisionMade();
-        return;
+        _controller.MakeDecision(gameState);
+    }
+
+    public virtual void FillHand(List<Card> cards)
+    {
+        _model.FillHand(cards);
+    }
+
+    public virtual void ChangeMoney(long money)
+    {
+        _model.Money += money;
     }
 
     public bool HasStatus(ContestantStatus status)

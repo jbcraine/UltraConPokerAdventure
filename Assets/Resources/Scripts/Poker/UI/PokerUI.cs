@@ -23,11 +23,11 @@ public class PokerUI : MonoBehaviour
 
     
 
-    public void EnableUI(PlayerContestant player)
+    public void EnableUI(PlayerContestantController player)
     {
-        RaiseButton.onClick.AddListener(() => { player.PlayerRaised?.Invoke(new RaiseDecisionInfo(RaiseValue, player)); DisableUI(); });
-        CallButton.onClick.AddListener(() => { player.PlayerCalled?.Invoke(new CallDecisionInfo(CurrentBet, player)); DisableUI(); });
-        FoldButton.onClick.AddListener(() => { player.PlayerFolded?.Invoke(new FoldDecisionInfo(player)); DisableUI(); });
+        RaiseButton.onClick.AddListener(() => { player.PlayerRaised?.Invoke(new RaiseDecisionInfo(RaiseValue)); DisableUI(); });
+        CallButton.onClick.AddListener(() => { player.PlayerCalled?.Invoke(new CallDecisionInfo(CurrentBet)); DisableUI(); });
+        FoldButton.onClick.AddListener(() => { player.PlayerFolded?.Invoke(new FoldDecisionInfo()); DisableUI(); });
 
         SetSliderValues(CurrentBet, player.Money);
         RaiseSlider.interactable = true;

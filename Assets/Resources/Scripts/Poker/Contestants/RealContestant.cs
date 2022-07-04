@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RealContestant : AIContestant
+public class RealContestant : AIContestantController
 {
    
 }

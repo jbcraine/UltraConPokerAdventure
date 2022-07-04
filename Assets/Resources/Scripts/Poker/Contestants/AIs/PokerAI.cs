@@ -19,19 +19,19 @@ public class PokerAI : MonoBehaviour
     [SerializeField][Range(0f, 1f)]
     protected float slyness;
    
-    protected AIContestant _contestant;
+    protected AIContestantController _contestant;
 
     private HandScorer _scorer;
 
 
-    public void Initialize(HandScorer scorer, AIContestant contestant)
+    public void Initialize(HandScorer scorer, AIContestantController contestant)
     {
         _scorer = scorer;
         _contestant = contestant;
     }
 
     //Use the modifed hand strength to make a decision for this character
-    public virtual long MakeDecision(PokerState gamestate, int numContestants, bool[] knownCards)
+    public virtual long MakeDecision(PokerState gamestate, ContestantModel model, int numContestants, bool[] knownCards)
     {
         int opponents = numContestants - 1;
 
@@ -53,8 +53,8 @@ public class PokerAI : MonoBehaviour
             //Round bet amount to multiple of 10
             betAmount -= betAmount % 10;
 
-            if (betAmount > _contestant.Money)
-                betAmount = _contestant.Money;
+            if (betAmount > model.Money)
+                betAmount = model.Money;
             else if (betAmount < gamestate.CurrentBet)
                 betAmount = gamestate.CurrentBet;
         }

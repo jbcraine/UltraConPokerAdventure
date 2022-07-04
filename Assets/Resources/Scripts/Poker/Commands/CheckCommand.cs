@@ -4,12 +4,10 @@ using UnityEngine;
 
 public class CheckCommandArgs
 {
-    public Contestant Contestant;
     public PokerType Game;
 
-    public CheckCommandArgs(Contestant c, PokerType g)
+    public CheckCommandArgs(PokerType g)
     {
-        Contestant = c;
         Game = g;
     }
 }

@@ -1,1 +1,1 @@
-public delegate void EnableUIEvent(PlayerContestant player);
+public delegate void EnableUIEvent(PlayerContestantController player);

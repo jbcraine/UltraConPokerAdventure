@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AlwaysFoldContestant : AIContestant
+public class AlwaysFoldContestant : AIContestantController
 {
     public override void MakeDecision(PokerState state)
     {
