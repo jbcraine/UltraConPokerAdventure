@@ -2,8 +2,19 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
+public class AB
+{
+    private const string TRUE= "TRUE";
+    private const string FALSE = "FALSE";
+    private const string QUESTSTATE = "QUESTSTATE";
+    private string CONDITION_A;
+    private string CONDITION_B;
+    private string CONDITION_C;
+}
 public static class AddressBook
 {
+    //FIRST, check values
+    //If defaults, check methods
     public static bool FindAddress(string key, string[] args = null)
     {
         switch (key)

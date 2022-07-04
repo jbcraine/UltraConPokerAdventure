@@ -5,13 +5,13 @@ using UnityEngine;
 public class CallCommandArgs
 {
     public Contestant Contestant;
-    public int Contribution;
+    public long Contribution;
     public PokerType Game;
 
-    public CallCommandArgs(Contestant c, int cont, PokerType game)
+    public CallCommandArgs(Contestant c, long contribution, PokerType game)
     {
         Contestant = c;
-        Contribution = cont;
+        Contribution = contribution;
         Game = game;
     }
 }

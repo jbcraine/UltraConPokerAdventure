@@ -1,18 +1,24 @@
 using System;
+using System.Collections.Generic;
 
 public delegate void WonPotEventHandler(object sender, WonPotEventArgs p);
-public delegate void RoundStartedEventHandler(object sender, int startingMoney);
+public delegate void RoundStartedEventHandler(object sender, long startingMoney);
 public delegate void EndRoundEventHandler(object sender);
-public delegate void PotChangedEventHandler(object sender, int pot);
+public delegate void PotChangedEventHandler(object sender, long pot);
 public delegate PokerCommand PlayerMadeDecisionHandler(object sender, PokerCommand decision);
 public delegate void PhaseStartEventHandler(object sender);
-public delegate void MoneyEventHandler(object sender, int money);
+public delegate void MoneyEventHandler(object sender, long money);
 public delegate void MatchEndEventHandler(object sender, string winnerName);
 public delegate void ContestantEliminatedEventHandler(object sender, string contestantName);
 public delegate void ClearHandHandler(object sender);
 public delegate void CardEventHandler(object sender, CardEventArgs e);
-public delegate void BetChangedEventHandler(object sender, int currentBet);
+public delegate void BetChangedEventHandler(object sender, long currentBet);
 public delegate void AllContestantsCalledHandler(object sender);
+public delegate void RaiseEventHandler(RaiseDecisionInfo raiseInfo);
+public delegate void CallEventHandler(CallDecisionInfo callInfo);
+public delegate void CheckEventHandler(CheckDecisionInfo checkInfo);
+public delegate void FoldEventHandler(FoldDecisionInfo foldInfo);
+public delegate void HandFilledEventHandler(List<Card> cards);
 
 
 

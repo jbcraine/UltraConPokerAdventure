@@ -24,6 +24,7 @@ public class HandScorer
     //Return the score and the name of the hand
     public HandInfo ScoreHand(Hand hand)
     {
+        Debug.Log("Scorer " + hand.cards.Count);
         (int[] bestHand, HandName name) = Analyzer.DetermineHand(hand);
         int rank;
         HandInfo info = HandInfo.Empty;
