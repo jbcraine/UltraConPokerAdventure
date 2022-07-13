@@ -49,20 +49,24 @@ public class PlayerContestantController : ContestantController
     private void OnRaise(RaiseDecisionInfo info)
     {
         Raise(info.bet, _recentState);
+        UnhookEvents();
     }
 
     private void OnCall(CallDecisionInfo info)
     {
         Call(_recentState);
+        UnhookEvents();
     }
 
     private void OnCheck(CheckDecisionInfo info)
     {
         Check(_recentState);
+        UnhookEvents();
     }
 
     private void OnFold(FoldDecisionInfo info)
     {
         Fold(_recentState);
+        UnhookEvents();
     }
 }

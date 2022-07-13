@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PoolPokerContestant_AI : PoolPokerContestant
+public class AIPoolPokerContestantController : AIContestantController
 {
-    public override void InitializePool(CommunityPool pool)
+    CommunityPool _pool;
+    public void InitializePool(CommunityPool pool)
     {
-        base.InitializePool(pool);
-        
+       _pool = pool;
     }
 
     protected void AddRevealedCommunityCardsToKnownCards(int n)

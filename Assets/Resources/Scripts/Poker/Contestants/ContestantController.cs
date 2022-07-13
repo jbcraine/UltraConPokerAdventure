@@ -61,9 +61,10 @@ public abstract class ContestantController : MonoBehaviour
         return;
     }
 
-    public virtual void Initialize(HandScorer scorer)
+    public virtual void Initialize(HandScorer scorer, ContestantModel model)
     {
         _handScorer = scorer;
+        _model = model;
     }
 
     protected virtual PokerCommand Raise(long raisedBet, PokerState state)

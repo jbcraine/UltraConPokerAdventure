@@ -8,7 +8,7 @@ public class Card
 {
     public CardFace face { get; private set; }
     public CardSuit suit { get; private set; }
-    public int id { get; private set; }
+    public int id { get { return (int)suit * 13 + (int)face; } }
     public bool revealed;
 
     public int FaceValue

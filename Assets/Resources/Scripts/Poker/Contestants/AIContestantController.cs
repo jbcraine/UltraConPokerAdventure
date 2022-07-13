@@ -13,9 +13,10 @@ public class AIContestantController : ContestantController
         knownCards = new bool[52];
     }
 
-    public override void Initialize(HandScorer scorer)
+    public override void Initialize(HandScorer scorer, ContestantModel model)
     {
-        base.Initialize(scorer);
+        _model = model;
+        _handScorer = scorer;
         _AI.Initialize(scorer, this);
     }
 

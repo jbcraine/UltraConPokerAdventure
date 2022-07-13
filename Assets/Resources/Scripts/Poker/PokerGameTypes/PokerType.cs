@@ -13,7 +13,7 @@ public enum InitialBetType
 }
 
 //Each variant of Poker inherits from PokerType
-public abstract class PokerType
+public class PokerType
 {
     //INSTANCE PROPERTIES
     //The minimum each contestant needs to start. Contestants may exceed this amount at the start of a game.

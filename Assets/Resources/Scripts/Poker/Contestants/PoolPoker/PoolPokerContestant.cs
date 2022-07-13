@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class PoolPokerContestant : Contestant
 {
-    protected CommunityPool _Pool;
+    new PoolPokerContestantModel _model;
+    new AIPoolPokerContestantController _controller;
 
     public virtual void InitializePool(CommunityPool pool)
     {
-        _Pool = pool;
+        _model.SetPool(pool);
     }
 }
