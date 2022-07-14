@@ -4,12 +4,17 @@ using UnityEngine;
 
 public class CommunityPoolType : PokerType
 {
+    new CommunityPoolRuleset Ruleset;
     CommunityPool _Pool;
     new List<PoolPokerContestant> _Contestants;
 
     public CommunityPool Pool { get { return _Pool; } }
 
 
+    public CommunityPoolType(CommunityPoolRuleset ruleset)
+    {
+        Ruleset = ruleset;
+    }
     public override void Initialize(PokerGameInitializationInfo info, List<Contestant> contestants)
     {
         base.Initialize(info, contestants);

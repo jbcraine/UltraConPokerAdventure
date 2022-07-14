@@ -16,10 +16,10 @@ public enum InitialBetType
 public class PokerType
 {
     //INSTANCE PROPERTIES
+    public PokerRuleset Ruleset;
     //The minimum each contestant needs to start. Contestants may exceed this amount at the start of a game.
     public long MinimumStartingMoney;
     public virtual long StartingBet { get; set; }
-    public virtual long MaxBet { get; set; }
     protected List<Contestant> _Contestants;
     protected long _MainPot = 0;
     protected int _Round = 0;
@@ -28,9 +28,8 @@ public class PokerType
     protected Deck _Deck;
     protected HandScorer _Scorer;
     //CLASS PROPERTIES
-    protected virtual int MaxPhases { get; }
     protected virtual int RoundsToRaiseStartingBet { get; }
-    protected virtual int _cardsPerContestant { get; }
+    protected long _cardsPerContestant { get { return Ruleset.maxBet; } }
     private List<SidePot> SidePots;
 
     //EVENTS
@@ -43,7 +42,7 @@ public class PokerType
     public virtual long CurrentBet { get { return _CurrentBet; } }
     public virtual int CurrentContestantIndex { get { return _CurrentContestantIndex; } }
     public virtual Deck Deck { get { return _Deck; } }
-    public virtual int CardsPerContestant { get { return _cardsPerContestant; } }
+    public int CardsPerContestant { get { return Ruleset.cardsPerContestant; } }
     public virtual Contestant NextContestant { get {
             int nextIndex = CurrentContestantIndex + 1;
             while (nextIndex != CurrentContestantIndex)
@@ -122,7 +121,6 @@ public class PokerType
     {
         if (info != null)
         {
-            MaxBet = info.MaxBet;
             StartingBet = info.StartingBet;
             MinimumStartingMoney = info.MinimumStartingMoney;
         }
