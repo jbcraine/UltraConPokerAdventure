@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class AIPoolPokerContestantController : AIContestantController
 {
-    CommunityPool _pool;
+    PoolPokerContestantModel model;
     public void InitializePool(CommunityPool pool)
     {
-       _pool = pool;
+        model.SetPool(pool);
     }
 
     protected void AddRevealedCommunityCardsToKnownCards(int n)

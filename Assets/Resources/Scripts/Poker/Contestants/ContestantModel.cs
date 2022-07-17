@@ -1,6 +1,4 @@
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
 public delegate void ContestantDecisionEventHandler(PokerCommand decision);
 public enum ContestantStatus
@@ -12,7 +10,7 @@ public enum ContestantStatus
     Eliminated = 0b1000
 
 }
-public abstract class ContestantModel
+public class ContestantModel
 {
     protected Hand _hand;
 

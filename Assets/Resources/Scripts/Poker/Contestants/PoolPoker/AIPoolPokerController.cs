@@ -1,20 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 public class AIPoolPokerController : AIContestantController
 {
-    new protected PoolPokerContestantModel _model;
+    public PoolPokerContestantModel Model { get { return (PoolPokerContestantModel) _model; } }
 
     public void Initialize(HandScorer scorer, PoolPokerContestantModel model)
     {
         base.Initialize(scorer, model);
 
-        _model.Pool.CardsRevealed += AddRevealedPoolCardsToKnownCards;
+        Model.Pool.CardsRevealed += AddRevealedPoolCardsToKnownCards;
     }
     public void AddRevealedPoolCardsToKnownCards(int numCardsRevealed)
     {
-        foreach(Card card in _model.Pool.RevealedCards)
+        foreach(Card card in Model.Pool.RevealedCards)
         {
             knownCards[card.id] = true;
         }

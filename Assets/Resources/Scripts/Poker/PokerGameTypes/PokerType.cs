@@ -143,16 +143,8 @@ public class PokerType
         //Choose the starting contestant
         _CurrentContestantIndex = rnd.Next(0, _Contestants.Count - 1);
         //Execute more rounds until the match is over
-        while (true)
-        {
-            NextRound();
 
-            if (MatchOver)
-            {
-                break;
-            }
-        }
-        EndMatch();
+        NextRound();
     }
 
     public virtual void EndMatch()
@@ -162,21 +154,19 @@ public class PokerType
 
     public virtual void NextRound()
     {
+        //Check if the match is over
+        if (MatchOver)
+        {
+            EndMatch();
+            return;
+
+        }
         _Round++;
         _Deck.FillStandardDeck();
         _Deck.ShuffleDeck();
         Deal();
-        Contestant current = CurrentContestant;
-        while (true)
-        {
-            if (RoundOver)
-                break;
-
-            NextTurn(current);
-            current = NextContestant;
-        }
-
-        EndRound();
+        
+        NextTurn();
     }
 
     protected virtual void EndRound()
@@ -184,12 +174,22 @@ public class PokerType
         EliminateContestants();
         _MainPot = 0;
         _CurrentBet = 0;
+
+        NextRound();
     }
 
-    public virtual void NextTurn(Contestant contestant)
+    public virtual void NextTurn()
     {
+        //Check if the round is over
+        if (RoundOver)
+        {
+            EndRound();
+            return;
+        }
+        //Set current contestant to the next contestant
+
         //contestant.DecisionMade += ExecuteDecision; //Allow a decision
-        AskContestantForDecision(contestant);
+        AskContestantForDecision(CurrentContestant);
         //log decision
         //contestant.DecisionMade -= ExecuteDecision; //Don't allow deciions when not their turn
     }
@@ -201,17 +201,14 @@ public class PokerType
 
     public virtual void EndTurn()
     {
-        return;
+        NextTurn();
     }
 
-    public virtual void NextPhase()
-    {
-        return;
-    }
 
     public virtual void ExecuteDecision(PokerCommand decision)
     {
         decision.Execute();
+        EndTurn();
     }
 
     public void SetContestants(List<Contestant> contestants)
@@ -349,10 +346,6 @@ public class PokerType
         contestant.Status = ContestantStatus.Eliminated;
     }
 
-    protected virtual void PhaseCheck()
-    {
-        return;
-    }
     public virtual void Reset()
     {
         _Round = 0;
