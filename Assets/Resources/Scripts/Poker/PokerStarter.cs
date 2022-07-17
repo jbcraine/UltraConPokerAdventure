@@ -12,15 +12,25 @@ public class PokerStarter : MonoBehaviour
     GameObject PokerUI;
     PokerType PokerGame;
 
+    private void Start()
+    {
+    }
     public void BeginInstance()
     {
         if (info.GameType == PokerGameEnum.TexasHoldEm)
         {
             GameObject obj = Instantiate(PokerUI);
             PokerUI ui = obj.GetComponent<PokerUI>();
-            PokerGame = new TexasHoldEm(info, contestants);
+            PokerGame = new CommunityPoolType(PokerRulesets.Texas_Holdem);
+            PokerGame.Initialize(info, contestants);
             ui.HookupToPokerType(PokerGame);
+            PlayerContestantController[] pcs = FindObjectsOfType<PlayerContestantController>();
+            foreach(var p in pcs)
+            {
+                p.HookupUI(ui);
+            }
             PokerGame.StartMatch();
+
         }
     }
 }

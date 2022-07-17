@@ -1,14 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 public class PoolPokerContestant : Contestant
 {
-    new PoolPokerContestantModel _model;
-    new AIPoolPokerContestantController _controller;
-
+    protected PoolPokerContestantModel Model { get { return (PoolPokerContestantModel)_model; } }
     public virtual void InitializePool(CommunityPool pool)
     {
-        _model.SetPool(pool);
+        Model.SetPool(pool);
+    }
+
+    protected override void Awake()
+    {
+        _model = new PoolPokerContestantModel();
     }
 }

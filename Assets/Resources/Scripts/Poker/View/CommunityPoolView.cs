@@ -27,6 +27,8 @@ public class CommunityPoolView : MonoBehaviour
         pool.CardsRevealed += RevealCards;
         pool.PoolCleared += ClearCards;
         pool.PoolFilled += SetCardViews;
+
+        InstantiateCardViews(pool.CardAmount);
     }
 
     public void SetCardViews(List<Card> cards)
@@ -46,6 +48,7 @@ public class CommunityPoolView : MonoBehaviour
     //Create a CardView for each hand card
     private void InstantiateCardViews(int amount)
     {
+        _PoolCards = new List<CardView>();
         for (int i = 0; i < amount; i++)
         {
             GameObject cardview = Instantiate(_CardViewPrefab);
@@ -56,6 +59,8 @@ public class CommunityPoolView : MonoBehaviour
 
     private void RevealCards(int amount)
     {
+        Debug.Log(_RevealedCards);
+        Debug.Log(_PoolCards);
         if (_RevealedCards >= _PoolCards.Count)
             return;
 

@@ -6,21 +6,16 @@ public class PlayerContestantController : ContestantController
 {
     //Include a event to deactivate some UI features once the player makes a decision
 
-    public event MoneyEventHandler MoneyChanged;
-    public event PlayerMadeDecisionHandler PlayerDecided;
-    public event EnableUIEvent UIEnabled;
+    public MoneyEventHandler MoneyChanged;
+    public PlayerMadeDecisionHandler PlayerDecided;
+    public EnableUIEvent UIEnabled;
+    public InitiateUIEvent UIInitiated;
     public RaiseEventHandler PlayerRaised;
     public CallEventHandler PlayerCalled;
     public CheckEventHandler PlayerChecked;
     public FoldEventHandler PlayerFolded;
     public HandFilledEventHandler HandFilled;
     private PokerState _recentState;
-
-    private void Awake()
-    {
-        PokerUI ui = FindObjectOfType<PokerUI>();
-        HandFilled += ui.SetPlayerCards;
-    }
 
 
     public override void MakeDecision(PokerState state)
@@ -69,4 +64,10 @@ public class PlayerContestantController : ContestantController
         Fold(_recentState);
         UnhookEvents();
     }
+
+    public void HookupUI(PokerUI ui)
+    {
+        HandFilled += ui.SetPlayerCards;
+    }
+
 }

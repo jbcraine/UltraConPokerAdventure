@@ -7,6 +7,8 @@ using TMPro;
 
 public class PokerUI : MonoBehaviour
 {
+    public InitiateUIEvent UIInitiated;
+
     public Button RaiseButton;
     public Button CallButton;
     public Button FoldButton;
@@ -81,8 +83,10 @@ public class PokerUI : MonoBehaviour
 
         if (poker is CommunityPoolType)
         {
-            var temp = poker as CommunityPoolType;
+            Debug.Log("Success!");
+            var temp = (CommunityPoolType) poker;
            _PoolView.HookupToCommunityPool(temp.Pool);
+            Debug.Log(temp.Pool);
         }
     }
 }

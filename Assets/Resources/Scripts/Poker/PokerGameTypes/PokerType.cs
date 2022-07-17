@@ -16,10 +16,10 @@ public enum InitialBetType
 public class PokerType
 {
     //INSTANCE PROPERTIES
+    public PokerRuleset Ruleset;
     //The minimum each contestant needs to start. Contestants may exceed this amount at the start of a game.
     public long MinimumStartingMoney;
     public virtual long StartingBet { get; set; }
-    public virtual long MaxBet { get; set; }
     protected List<Contestant> _Contestants;
     protected long _MainPot = 0;
     protected int _Round = 0;
@@ -28,9 +28,8 @@ public class PokerType
     protected Deck _Deck;
     protected HandScorer _Scorer;
     //CLASS PROPERTIES
-    protected virtual int MaxPhases { get; }
     protected virtual int RoundsToRaiseStartingBet { get; }
-    protected virtual int _cardsPerContestant { get; }
+    protected long _cardsPerContestant { get { return Ruleset.maxBet; } }
     private List<SidePot> SidePots;
 
     //EVENTS
@@ -43,7 +42,7 @@ public class PokerType
     public virtual long CurrentBet { get { return _CurrentBet; } }
     public virtual int CurrentContestantIndex { get { return _CurrentContestantIndex; } }
     public virtual Deck Deck { get { return _Deck; } }
-    public virtual int CardsPerContestant { get { return _cardsPerContestant; } }
+    public int CardsPerContestant { get { return Ruleset.cardsPerContestant; } }
     public virtual Contestant NextContestant { get {
             int nextIndex = CurrentContestantIndex + 1;
             while (nextIndex != CurrentContestantIndex)
@@ -122,7 +121,6 @@ public class PokerType
     {
         if (info != null)
         {
-            MaxBet = info.MaxBet;
             StartingBet = info.StartingBet;
             MinimumStartingMoney = info.MinimumStartingMoney;
         }
@@ -145,16 +143,8 @@ public class PokerType
         //Choose the starting contestant
         _CurrentContestantIndex = rnd.Next(0, _Contestants.Count - 1);
         //Execute more rounds until the match is over
-        while (true)
-        {
-            NextRound();
 
-            if (MatchOver)
-            {
-                break;
-            }
-        }
-        EndMatch();
+        NextRound();
     }
 
     public virtual void EndMatch()
@@ -164,21 +154,19 @@ public class PokerType
 
     public virtual void NextRound()
     {
+        //Check if the match is over
+        if (MatchOver)
+        {
+            EndMatch();
+            return;
+
+        }
         _Round++;
         _Deck.FillStandardDeck();
         _Deck.ShuffleDeck();
         Deal();
-        Contestant current = CurrentContestant;
-        while (true)
-        {
-            if (RoundOver)
-                break;
-
-            NextTurn(current);
-            current = NextContestant;
-        }
-
-        EndRound();
+        
+        NextTurn();
     }
 
     protected virtual void EndRound()
@@ -186,12 +174,22 @@ public class PokerType
         EliminateContestants();
         _MainPot = 0;
         _CurrentBet = 0;
+
+        NextRound();
     }
 
-    public virtual void NextTurn(Contestant contestant)
+    public virtual void NextTurn()
     {
+        //Check if the round is over
+        if (RoundOver)
+        {
+            EndRound();
+            return;
+        }
+        //Set current contestant to the next contestant
+
         //contestant.DecisionMade += ExecuteDecision; //Allow a decision
-        AskContestantForDecision(contestant);
+        AskContestantForDecision(CurrentContestant);
         //log decision
         //contestant.DecisionMade -= ExecuteDecision; //Don't allow deciions when not their turn
     }
@@ -203,17 +201,14 @@ public class PokerType
 
     public virtual void EndTurn()
     {
-        return;
+        NextTurn();
     }
 
-    public virtual void NextPhase()
-    {
-        return;
-    }
 
     public virtual void ExecuteDecision(PokerCommand decision)
     {
         decision.Execute();
+        EndTurn();
     }
 
     public void SetContestants(List<Contestant> contestants)
@@ -351,10 +346,6 @@ public class PokerType
         contestant.Status = ContestantStatus.Eliminated;
     }
 
-    protected virtual void PhaseCheck()
-    {
-        return;
-    }
     public virtual void Reset()
     {
         _Round = 0;

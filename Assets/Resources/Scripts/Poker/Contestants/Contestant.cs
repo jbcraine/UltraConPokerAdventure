@@ -1,9 +1,8 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 
-public abstract class Contestant : MonoBehaviour
+public class Contestant : MonoBehaviour
 {
     [SerializeField] protected string _contestantName;
     protected ContestantModel _model;
@@ -81,6 +80,10 @@ public abstract class Contestant : MonoBehaviour
         get { return HasStatus(ContestantStatus.Folded); }
     }
 
+    protected virtual void Awake()
+    {
+        
+    }
     public virtual void Initialize(HandScorer scorer)
     {
         _handScorer = scorer;
@@ -111,7 +114,7 @@ public abstract class Contestant : MonoBehaviour
         return (this.Status & status) > 0;
     }
 
-    public void Reset()
+    public void ResetState()
     {
         Hand.EmptyHand();
         CurrentlyWageredMoney = 0;
