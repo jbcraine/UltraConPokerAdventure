@@ -67,7 +67,7 @@ public class PlayerContestantController : ContestantController
 
     public void HookupUI(PokerUI ui)
     {
+        UIEnabled += ui.EnableUI;
         HandFilled += ui.SetPlayerCards;
     }
-
 }

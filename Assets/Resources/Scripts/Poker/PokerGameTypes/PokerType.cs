@@ -33,13 +33,17 @@ public class PokerType
     private List<SidePot> SidePots;
 
     //EVENTS
-    public event ContestantEliminatedEventHandler ContestantEliminated;
-    public event MatchEndEventHandler MatchEnded;
+    public ContestantEliminatedEventHandler ContestantEliminated;
+    public MatchEndEventHandler MatchEnded;
+    public RoundStartedEventHandler RoundStarted;
+    public EndRoundEventHandler RoundEnded;
+    public PotChangedEventHandler PotChanged;
+    public BetChangedEventHandler BetChanged;
 
     //GETTERS
-    public virtual long MainPot { get { return _MainPot; } }
+    public virtual long MainPot { get { return _MainPot; } set { _MainPot = value; PotChanged?.Invoke(_MainPot); } }
     public virtual int Round { get { return _Round; } }
-    public virtual long CurrentBet { get { return _CurrentBet; } }
+    public virtual long CurrentBet { get { return _CurrentBet; } set { _CurrentBet = value; BetChanged?.Invoke(_CurrentBet); } }
     public virtual int CurrentContestantIndex { get { return _CurrentContestantIndex; } }
     public virtual Deck Deck { get { return _Deck; } }
     public int CardsPerContestant { get { return Ruleset.cardsPerContestant; } }
@@ -172,7 +176,7 @@ public class PokerType
     protected virtual void EndRound()
     {
         EliminateContestants();
-        _MainPot = 0;
+        MainPot = 0;
         _CurrentBet = 0;
 
         NextRound();
@@ -234,13 +238,13 @@ public class PokerType
 
     public virtual void Call(long money)
     {
-        _MainPot += money;
+        MainPot += money;
     }
 
     public virtual void Raise(long raisedBet)
     {
-        _MainPot += raisedBet - CurrentBet;
-        _CurrentBet = raisedBet;
+        MainPot += raisedBet - CurrentBet;
+        CurrentBet = raisedBet;
         //Raise
         SetNonCurrentContestantsToWaiting();
     }
@@ -324,7 +328,7 @@ public class PokerType
             if (contestant.Money == 0)
             {
                 contestant.Status = ContestantStatus.Eliminated;
-                ContestantEliminated?.Invoke(this, contestant.ContestantName);
+                ContestantEliminated?.Invoke(contestant.ContestantName);
             }
         });
 

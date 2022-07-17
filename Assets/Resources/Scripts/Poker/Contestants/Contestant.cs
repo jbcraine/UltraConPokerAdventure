@@ -87,6 +87,7 @@ public class Contestant : MonoBehaviour
     public virtual void Initialize(HandScorer scorer)
     {
         _handScorer = scorer;
+        _controller.Initialize(scorer, _model);
     }
 
     public virtual void DetermineScore()

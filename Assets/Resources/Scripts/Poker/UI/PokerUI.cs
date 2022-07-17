@@ -51,19 +51,21 @@ public class PokerUI : MonoBehaviour
         RaiseSlider.value = RaiseSlider.minValue;
     }
 
-    public void ChangePotText(int pot)
+    public void ChangePotText(long pot)
     {
-        PotDisplay.text = "$" + string.Format("{0:n0}", pot.ToString());
+        PotDisplay.text = "$" + string.Format("{0}", pot);
     }
 
-    public void ChangeRaiseText(int raise)
+    public void ChangeRaiseText(long raise)
     {
-        RaiseDisplay.text = "$" + string.Format("{0:n0}", raise.ToString());
+        RaiseValue = raise;
+        RaiseDisplay.text = "$" + string.Format("{0}", raise);
     }
 
-    public void ChangeBetDisplay(int bet)
+    public void ChangeBetDisplay(long bet)
     {
-        BetDisplay.text = "$" + "$" + string.Format("{0:n0}", bet.ToString());
+        CurrentBet = bet;
+        BetDisplay.text = "$" + "$" + string.Format("{0}", bet);
     }
 
     public void SetPlayerCards(List<Card> cards)
@@ -81,6 +83,7 @@ public class PokerUI : MonoBehaviour
         if (poker == null)
             return;
 
+
         if (poker is CommunityPoolType)
         {
             Debug.Log("Success!");
@@ -88,5 +91,8 @@ public class PokerUI : MonoBehaviour
            _PoolView.HookupToCommunityPool(temp.Pool);
             Debug.Log(temp.Pool);
         }
+
+        poker.BetChanged += ChangeBetDisplay;
+        poker.PotChanged += ChangePotText;
     }
 }

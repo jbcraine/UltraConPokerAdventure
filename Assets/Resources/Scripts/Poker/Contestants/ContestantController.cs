@@ -63,6 +63,7 @@ public class ContestantController : MonoBehaviour
     {
         _handScorer = scorer;
         _model = model;
+        Debug.Log("Model: " + model);
     }
 
     protected virtual PokerCommand Raise(long raisedBet, PokerState state)
@@ -78,7 +79,7 @@ public class ContestantController : MonoBehaviour
         long contribution = raisedBet - _model.CurrentlyWageredMoney;
 
         RaiseCommand raise = new RaiseCommand(new RaiseCommandArgs(raisedBet, state.Game));
-        DecisionMade(raise);
+        DecisionMade?.Invoke(raise);
         _model.ChangeMoney(-contribution);
         _model.CurrentlyWageredMoney += contribution;
         Status = ContestantStatus.Called;
@@ -95,7 +96,7 @@ public class ContestantController : MonoBehaviour
         contribution = contribution <= _model.Money ? _model.Money : contribution;
 
         CallCommand call = new CallCommand(new CallCommandArgs(contribution, state.Game));
-        DecisionMade(call);
+        DecisionMade?.Invoke(call);
         _model.ChangeMoney(-contribution);
         _model.CurrentlyWageredMoney += contribution;
         Status = ContestantStatus.Called;
@@ -105,7 +106,7 @@ public class ContestantController : MonoBehaviour
     protected virtual PokerCommand Check(PokerState state)
     {
         CheckCommand check = new CheckCommand(new CheckCommandArgs(state.Game));
-        DecisionMade(check);
+        DecisionMade?.Invoke(check);
         Status = ContestantStatus.Called;
         return check;
     }
@@ -113,7 +114,7 @@ public class ContestantController : MonoBehaviour
     protected virtual PokerCommand Fold(PokerState state)
     {
         FoldCommand fold = new FoldCommand(new FoldCommandArgs(state.Game));
-        DecisionMade(fold);
+        DecisionMade?.Invoke(fold);
         Status = ContestantStatus.Folded;
         return fold;
     }
