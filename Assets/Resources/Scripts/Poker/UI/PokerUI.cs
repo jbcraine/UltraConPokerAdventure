@@ -30,7 +30,7 @@ public class PokerUI : MonoBehaviour
         RaiseButton.onClick.AddListener(() => { player.PlayerRaised?.Invoke(new RaiseDecisionInfo(RaiseValue)); DisableUI(); });
         CallButton.onClick.AddListener(() => { player.PlayerCalled?.Invoke(new CallDecisionInfo(CurrentBet)); DisableUI(); });
         FoldButton.onClick.AddListener(() => { player.PlayerFolded?.Invoke(new FoldDecisionInfo()); DisableUI(); });
-
+        SetButtons(true);
         SetSliderValues(CurrentBet, player.Money);
         RaiseSlider.interactable = true;
     }
@@ -46,7 +46,7 @@ public class PokerUI : MonoBehaviour
         RaiseButton.onClick.RemoveAllListeners();
         CallButton.onClick.RemoveAllListeners();
         FoldButton.onClick.RemoveAllListeners();
-
+        SetButtons(false);
         RaiseSlider.interactable = false;
         RaiseSlider.value = RaiseSlider.minValue;
     }
@@ -65,7 +65,7 @@ public class PokerUI : MonoBehaviour
     public void ChangeBetDisplay(long bet)
     {
         CurrentBet = bet;
-        BetDisplay.text = "$" + "$" + string.Format("{0}", bet);
+        BetDisplay.text = "$" + string.Format("{0}", bet);
     }
 
     public void SetPlayerCards(List<Card> cards)
@@ -94,5 +94,12 @@ public class PokerUI : MonoBehaviour
 
         poker.BetChanged += ChangeBetDisplay;
         poker.PotChanged += ChangePotText;
+    }
+
+    private void SetButtons(bool active)
+    {
+        RaiseButton.interactable = active;
+        CallButton.interactable = active;
+        FoldButton.interactable = active;
     }
 }
