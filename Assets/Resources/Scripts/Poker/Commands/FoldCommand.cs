@@ -4,12 +4,10 @@ using UnityEngine;
 
 public class FoldCommandArgs
 {
-    public Contestant Contestant;
     public PokerType Game;
 
-    public FoldCommandArgs(Contestant c, PokerType g)
+    public FoldCommandArgs(PokerType g)
     {
-        Contestant = c;
         Game = g;
     }
 }

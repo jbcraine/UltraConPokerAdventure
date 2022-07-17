@@ -4,12 +4,10 @@ using UnityEngine;
 
 public class PassCommandArgs
 {
-    public Contestant Contestant;
     public PokerType Game;
 
-    public PassCommandArgs(Contestant c, PokerType g)
+    public PassCommandArgs(PokerType g)
     {
-        Contestant = c;
         Game = g;
     }
 }

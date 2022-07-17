@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class PokerState
 {
-    public int CurrentBet;
-    public int Pot;
+    public long CurrentBet;
+    public long Pot;
     public PokerType Game;
 
-    public PokerState(int bet, int pot, PokerType game)
+    public PokerState(long bet, long pot, PokerType game)
     {
         CurrentBet = bet;
         Pot = pot;

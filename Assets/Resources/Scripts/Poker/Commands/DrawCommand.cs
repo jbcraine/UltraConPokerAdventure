@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class DrawCommandArgs
-{
-    public Contestant Contestant;
+{ 
     public int ReplacementCount;
     public PokerType Game;
 }

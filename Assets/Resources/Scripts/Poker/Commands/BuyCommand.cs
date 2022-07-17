@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class BuyCommandArgs
 {
-    Contestant Contestant;
     Card Card;
     int Price;
     PokerType Game;

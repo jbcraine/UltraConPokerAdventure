@@ -24,7 +24,7 @@ public class HandAnalyzer
     ///</summary>
     ///<returns>ulong with a single bit set, representing the given card.</returns>
     ///<param name="card">The card that will be converted into a bit.</param>
-    private ulong ConvertCardToBinary(Card card)
+    public ulong ConvertCardToBinary(Card card)
     {
         int rank = (int)card.face;
         int suit = (int)card.suit;
@@ -41,9 +41,10 @@ public class HandAnalyzer
     ///Convert the given hand to a 52-bit number, each bit representing a card.
     ///</summary>
     ///<param name="hand">The hand that will be converted into a 52-bit number.</param>
-    private void CreateBinaryHand(Hand hand)
+    public void CreateBinaryHand(Hand hand)
     {
         _binaryHand = 0;
+        Debug.Log("Count " + hand.cards.Count);
         foreach (Card card in hand.cards)
         {
             _binaryHand |= ConvertCardToBinary(card);
@@ -129,6 +130,7 @@ public class HandAnalyzer
         else
         {
             int[] completeHand = CompleteHand(5);
+            Debug.Log(completeHand);
             return (completeHand, HandName.High);
         }
     }
@@ -610,8 +612,6 @@ public class HandAnalyzer
     ///<param name="exemptRank2">The second rank that will be excluded from the search. May be left empty</param>
     private int[] CompleteHand(int numCardsNeeded, int exemptRank1 = -1, int execptRank2 = -1)
     {
-        ulong cardBase = 1;
-        cardBase <<= 63;
         ulong cardMask;
         int[] cards = new int[numCardsNeeded];
         int index = 0;
@@ -621,24 +621,22 @@ public class HandAnalyzer
             if (rank == exemptRank1 || rank == execptRank2)
                 continue;
 
-            cardMask = cardBase;
             for (int suit = 3; suit >= 0; --suit)
             {
+                cardMask = (ulong) 1 << ((suit * 13) + (12 - rank) + HAND_OFFSET);
                 //If the card being investigated is in the contestant's hand
                 if ((_binaryHand & cardMask) == cardMask)
                 {
                     //Then add it to the array and move onto the next rank
                     cards[index] = suit * 13 + rank;
                     ++index;
-                    if (index >= numCardsNeeded - 1)
+                    if (index == numCardsNeeded)
                     {
                         return cards;
                     }
                     break;
                 }
-                cardMask >>= 13;
             }
-            cardBase >>= 1;
         }
 
         return null;
