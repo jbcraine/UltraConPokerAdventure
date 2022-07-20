@@ -16,7 +16,9 @@ public class PokerUI : MonoBehaviour
     public TMP_Text PotDisplay;
     public TMP_Text BetDisplay;
     public TMP_Text RaiseDisplay;
+    public TMP_Text MoneyDisplay;
     public long CurrentBet;
+    public long CurrentMoney;
     public long RaiseValue;
     [SerializeField]
     private HandView _HandView;
@@ -68,6 +70,17 @@ public class PokerUI : MonoBehaviour
         BetDisplay.text = "$" + string.Format("{0}", bet);
     }
 
+    public void ChangeMoneyDisplay(long money)
+    {
+        CurrentMoney = money;
+        MoneyDisplay.text = "$" + string.Format ("{0}", money);
+    } 
+
+    private void ChangeSliderValues(long min, long max)
+    {
+        RaiseSlider.minValue = min;
+        RaiseSlider.maxValue = max;
+    }
     public void SetPlayerCards(List<Card> cards)
     {
         _HandView.SetCardViews(cards);
@@ -89,7 +102,7 @@ public class PokerUI : MonoBehaviour
             Debug.Log("Success!");
             var temp = (CommunityPoolType) poker;
            _PoolView.HookupToCommunityPool(temp.Pool);
-            Debug.Log(temp.Pool);
+            Debug.Log(temp.Pool.CardAmount);
         }
 
         poker.BetChanged += ChangeBetDisplay;

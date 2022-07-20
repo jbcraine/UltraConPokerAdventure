@@ -29,6 +29,12 @@ public class PokerStarter : MonoBehaviour
             {
                 p.HookupUI(ui);
             }
+
+            //Set each contestant's money
+            foreach (Contestant c in contestants)
+            {
+                c.ChangeMoney(10000);
+            }
             PokerGame.StartMatch();
 
         }

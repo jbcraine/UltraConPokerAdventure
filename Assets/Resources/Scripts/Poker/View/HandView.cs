@@ -43,12 +43,13 @@ public class HandView : MonoBehaviour
         if (_HandCards == null || _HandCards.Count == 0)
             InstantiateCardViews(cards.Count);
 
-        if (cards.Count != _HandCards.Count)
-            return;
+        //if (cards.Count != _HandCards.Count)
+        //    return;
 
         for (int i = 0; i < _HandCards.Count; i++)
         {
             _HandCards[i].SetFace(cards[i].face, cards[i].suit);
+            _HandCards[i].SetFaceUp(true);
         }
     }
 
@@ -57,9 +58,11 @@ public class HandView : MonoBehaviour
     {
         for (int i = 0; i < amount; i++)
         {
-            GameObject cardview = Instantiate(CardViewPrefab);
+            GameObject cardview = Instantiate(CardViewPrefab,transform,false);
             _HandCards.Add(cardview.GetComponent<CardView>());
-            cardview.transform.parent = this.transform;
+            cardview.GetComponent<RectTransform>().localScale = Vector2.one;
+            //cardview.transform.SetParent(this.gameObject.transform, false);
+            //cardview.transform.localScale = Vector3.one;
         }
     }
 }

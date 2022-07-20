@@ -70,7 +70,7 @@ RectTransform:
   - {fileID: 1609055378721173779}
   - {fileID: 1609055380738132726}
   m_Father: {fileID: 1609055380422134734}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -440,7 +440,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 1609055379413458668}
   m_OnClick:
     m_PersistentCalls:
@@ -512,7 +512,7 @@ RectTransform:
   m_Children:
   - {fileID: 1609055379915285909}
   m_Father: {fileID: 1609055380422134734}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -1031,7 +1031,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: $10000
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1131,7 +1131,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1609055380422134734}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -1488,7 +1488,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 1609055380244046757}
   m_OnClick:
     m_PersistentCalls:
@@ -1658,11 +1658,11 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
+  - {fileID: 2154556143699340909}
   - {fileID: 1609055379528369628}
   - {fileID: 1609055379941457093}
   - {fileID: 1609055378887933110}
   - {fileID: 3604482935445173419}
-  - {fileID: 2154556143699340909}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1751,7 +1751,9 @@ MonoBehaviour:
   PotDisplay: {fileID: 1609055380738132729}
   BetDisplay: {fileID: 1609055380254650227}
   RaiseDisplay: {fileID: 1609055379925558768}
+  MoneyDisplay: {fileID: 1609055380529005742}
   CurrentBet: 0
+  CurrentMoney: 0
   RaiseValue: 0
   _HandView: {fileID: 1648300508807960490}
   _PoolView: {fileID: 6320045976456859460}
@@ -1871,7 +1873,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 1609055380487016090}
   m_OnClick:
     m_PersistentCalls:
@@ -1955,7 +1957,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 1609055379802110472}
   m_FillRect: {fileID: 1609055379273403503}
   m_HandleRect: {fileID: 1609055379802110473}
@@ -2363,7 +2365,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1759896859541608196, guid: 3a29e5c3155e81942b076e8137b7c8a7, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1759896859541608196, guid: 3a29e5c3155e81942b076e8137b7c8a7, type: 3}
       propertyPath: m_AnchorMax.x
@@ -2442,24 +2444,36 @@ PrefabInstance:
       value: HandView
       objectReference: {fileID: 0}
     - target: {fileID: 5347985948809002436, guid: 3a29e5c3155e81942b076e8137b7c8a7, type: 3}
+      propertyPath: m_Spacing
+      value: 20.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 5347985948809002436, guid: 3a29e5c3155e81942b076e8137b7c8a7, type: 3}
       propertyPath: m_ChildAlignment
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 5711384847474864409, guid: 3a29e5c3155e81942b076e8137b7c8a7, type: 3}
+      propertyPath: m_Type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5711384847474864409, guid: 3a29e5c3155e81942b076e8137b7c8a7, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 4c0d089aa68b9c14facaea14bcf3b547, type: 3}
     - target: {fileID: 5711384847474864409, guid: 3a29e5c3155e81942b076e8137b7c8a7, type: 3}
       propertyPath: m_Color.a
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5711384847474864409, guid: 3a29e5c3155e81942b076e8137b7c8a7, type: 3}
       propertyPath: m_Color.b
-      value: 0.21960786
+      value: 0.15686275
       objectReference: {fileID: 0}
     - target: {fileID: 5711384847474864409, guid: 3a29e5c3155e81942b076e8137b7c8a7, type: 3}
       propertyPath: m_Color.g
-      value: 0.21960786
+      value: 0.15686275
       objectReference: {fileID: 0}
     - target: {fileID: 5711384847474864409, guid: 3a29e5c3155e81942b076e8137b7c8a7, type: 3}
       propertyPath: m_Color.r
-      value: 0.21960786
+      value: 0.15686275
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3a29e5c3155e81942b076e8137b7c8a7, type: 3}
@@ -2490,6 +2504,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: CommunityPoolView
       objectReference: {fileID: 0}
+    - target: {fileID: 2952489906377480682, guid: 3c991ce2b9e1a044eacd46d68ea7df3e, type: 3}
+      propertyPath: m_Spacing
+      value: 10.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2952489906377480682, guid: 3c991ce2b9e1a044eacd46d68ea7df3e, type: 3}
+      propertyPath: m_ChildForceExpandWidth
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2952489906377480682, guid: 3c991ce2b9e1a044eacd46d68ea7df3e, type: 3}
+      propertyPath: m_ChildForceExpandHeight
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5201016142365734616, guid: 3c991ce2b9e1a044eacd46d68ea7df3e, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -2500,7 +2526,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5201016142365734616, guid: 3c991ce2b9e1a044eacd46d68ea7df3e, type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5201016142365734616, guid: 3c991ce2b9e1a044eacd46d68ea7df3e, type: 3}
       propertyPath: m_AnchorMax.x
@@ -2576,11 +2602,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3c991ce2b9e1a044eacd46d68ea7df3e, type: 3}
---- !u!224 &2154556143699340909 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 5201016142365734616, guid: 3c991ce2b9e1a044eacd46d68ea7df3e, type: 3}
-  m_PrefabInstance: {fileID: 6182102832718387381}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &6320045976456859460 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 179701505547606001, guid: 3c991ce2b9e1a044eacd46d68ea7df3e, type: 3}
@@ -2592,3 +2613,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a9f76c43e05c4f499fcecf184903f5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!224 &2154556143699340909 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 5201016142365734616, guid: 3c991ce2b9e1a044eacd46d68ea7df3e, type: 3}
+  m_PrefabInstance: {fileID: 6182102832718387381}
+  m_PrefabAsset: {fileID: 0}

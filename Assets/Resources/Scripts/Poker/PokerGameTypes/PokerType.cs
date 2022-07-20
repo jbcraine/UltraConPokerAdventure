@@ -41,9 +41,15 @@ public class PokerType
     public BetChangedEventHandler BetChanged;
 
     //GETTERS
-    public virtual long MainPot { get { return _MainPot; } set { _MainPot = value; PotChanged?.Invoke(_MainPot); } }
+    public virtual long MainPot { 
+        get { return _MainPot; } 
+        set { _MainPot = value; PotChanged?.Invoke(_MainPot); } 
+    }
     public virtual int Round { get { return _Round; } }
-    public virtual long CurrentBet { get { return _CurrentBet; } set { _CurrentBet = value; BetChanged?.Invoke(_CurrentBet); } }
+    public virtual long CurrentBet { 
+        get { return _CurrentBet; } 
+        set { _CurrentBet = value; BetChanged?.Invoke(_CurrentBet); } 
+    }
     public virtual int CurrentContestantIndex { get { return _CurrentContestantIndex; } }
     public virtual Deck Deck { get { return _Deck; } }
     public int CardsPerContestant { get { return Ruleset.cardsPerContestant; } }
@@ -166,6 +172,8 @@ public class PokerType
 
         }
         _Round++;
+        MainPot = 0;
+        CurrentBet = 0;
         _Deck.FillStandardDeck();
         _Deck.ShuffleDeck();
         Deal();

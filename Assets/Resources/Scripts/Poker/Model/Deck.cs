@@ -40,6 +40,7 @@ public class Deck
             {
                 Card card = new Card((CardFace)value, (CardSuit)suit);
                 _deck.Add(card);
+                Debug.Log(card);
             }
         }
     }
@@ -129,6 +130,8 @@ public class Deck
 
         for (int i = 0; i < handsize; i++)
             hand.Add(PopCard());
+
+        
         return hand;
     }
 

@@ -28,7 +28,7 @@ public class CommunityPoolView : MonoBehaviour
         pool.PoolCleared += ClearCards;
         pool.PoolFilled += SetCardViews;
 
-        InstantiateCardViews(pool.CardAmount);
+        //InstantiateCardViews(pool.CardAmount);
     }
 
     public void SetCardViews(List<Card> cards)
@@ -36,6 +36,10 @@ public class CommunityPoolView : MonoBehaviour
         if (_PoolCards == null || _PoolCards.Count == 0)
             InstantiateCardViews(cards.Count);
 
+        foreach(var c in _PoolCards)
+        {
+            Debug.Log(c);
+        }
         if (cards.Count != _PoolCards.Count)
             return;
 
@@ -51,9 +55,12 @@ public class CommunityPoolView : MonoBehaviour
         _PoolCards = new List<CardView>();
         for (int i = 0; i < amount; i++)
         {
-            GameObject cardview = Instantiate(_CardViewPrefab);
+            GameObject cardview = Instantiate(_CardViewPrefab, transform, false);
+            cardview.GetComponent<RectTransform>().localScale = Vector2.one;
             _PoolCards.Add(cardview.GetComponent<CardView>());
-            cardview.transform.parent = this.transform;
+            //cardview.transform.SetParent(gameObject.transform, false);
+            //cardview.transform.localScale = Vector3.one;
+            //cardview.transform.position = new Vector3(cardview.transform.position.x, cardview.transform.position.y, -1);
         }
     }
 

@@ -69,5 +69,8 @@ public class PlayerContestantController : ContestantController
     {
         UIEnabled += ui.EnableUI;
         HandFilled += ui.SetPlayerCards;
+        _model.MoneyChanged += ui.ChangeMoneyDisplay;
+        _model.BetChanged += ui.ChangeBetDisplay;
+        _model.HandChanged += ui.SetPlayerCards;
     }
 }

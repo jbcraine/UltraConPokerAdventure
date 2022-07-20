@@ -1,10 +1,12 @@
 using System.Collections.Generic;
+using UnityEngine;
 public class CommunityPoolType : PokerType
 {
     CommunityPool _Pool;
     protected int currentPhase = 0;
 
     protected CommunityPoolRuleset Rules { get { return (CommunityPoolRuleset)Ruleset; } }
+    protected int PoolSize { get { return Rules.poolSize; } }
     public PoolPokerContestant DowncastContestant(Contestant contestant)
     {
         PoolPokerContestant p = (PoolPokerContestant)contestant;
@@ -43,9 +45,25 @@ public class CommunityPoolType : PokerType
 
     public override void NextRound()
     {
-        base.NextRound();
+        //Check if the match is over
+        if (MatchOver)
+        {
+            EndMatch();
+            return;
+
+        }
+        _Round++;
+        MainPot = 0;
+        CurrentBet = 0;
+        _Deck.FillStandardDeck();
+        _Deck.ShuffleDeck();
+        Deal();
+
+        Pool.FillPool(Deck.BuildHand(PoolSize));
         currentPhase = 0;
         NextPhase();
+
+        NextTurn();
     }
 
     public virtual void NextPhase()

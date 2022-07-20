@@ -17,18 +17,22 @@ public class ContestantModel
     //The money that the contestant has left available to wager in a round
     protected long _money;
     //The money that the contestant has already wagered in a round
-    protected long _betMoney;
+    protected long _betMoney = 0;
+
+    public ContestantMoneyChangeEventHandler MoneyChanged;
+    public ContestantBetChangedEventHandler BetChanged;
+    public ContestantReceivedHand HandChanged;
 
     public long Money
     {
         get { return _money; }
-        set { _money = value; }
+        set { _money = value; MoneyChanged?.Invoke(_money); }
     }
 
     public long CurrentlyWageredMoney
     {
         get { return _betMoney; }
-        set { _betMoney = value; }
+        set { _betMoney = value; BetChanged?.Invoke(_betMoney); }
     }
 
     public long TotalMoney
@@ -58,6 +62,8 @@ public class ContestantModel
                 _hand.AddCard(card);
             }
         }
+
+        HandChanged?.Invoke(cards);
     }
 
     public virtual void ChangeMoney(long money)

@@ -19,7 +19,9 @@ public delegate void CallEventHandler(CallDecisionInfo callInfo);
 public delegate void CheckEventHandler(CheckDecisionInfo checkInfo);
 public delegate void FoldEventHandler(FoldDecisionInfo foldInfo);
 public delegate void HandFilledEventHandler(List<Card> cards);
-
+public delegate void ContestantMoneyChangeEventHandler(long newMoney);
+public delegate void ContestantBetChangedEventHandler(long newBet);
+public delegate void ContestantReceivedHand(List<Card> cards);
 
 
 public class WonPotEventArgs : EventArgs

@@ -41,17 +41,19 @@ public class CardView : MonoBehaviour
         _FaceUp = set;
         if (_FaceUp)
         {
-            cardRenderer.sprite = faces.cardBack;
+            cardRenderer.sprite = currentFace;
         }
         else
         {
-            cardRenderer.sprite = currentFace;
+            cardRenderer.sprite = faces.cardBack;
         }
     }
 
     public void SetFace(CardFace face, CardSuit suit)
     {
         currentFace = faces.GetCardSprite(face, suit);
+        transform.localScale = new Vector3(1, 1, 0);
         cardRenderer.sprite = currentFace;
+        Debug.Log("Rendered");
     }
 }

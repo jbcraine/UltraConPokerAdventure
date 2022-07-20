@@ -7,7 +7,6 @@ public delegate void CommunityPoolCardsAddedHandler(List<Card> cards);
 public delegate void CommunityPoolClearedHandler();
 public class CommunityPool : Hand
 {
-    private const int STANDARD_POOL_SIZE = 5;
     private List<Card> _PoolCards;
     public List<Card> RevealedCards;
 
@@ -17,7 +16,7 @@ public class CommunityPool : Hand
 
     public int PoolSize
     {
-        get { return STANDARD_POOL_SIZE; }
+        get { return _PoolCards.Count; }
     }
     public int RevealedCardCount
     {
@@ -49,12 +48,18 @@ public class CommunityPool : Hand
 
     public void AddCards(List<Card> cards)
     {
-        _PoolCards = cards;
+        cards.ForEach(card => AddCard(card));
     }
 
     public void Clear()
     {
         _PoolCards.Clear();
         RevealedCards.Clear();
+    }
+
+    public void FillPool(List<Card> cards)
+    {
+        cards.ForEach(card => _PoolCards.Add(card));
+        PoolFilled.Invoke(_PoolCards);
     }
 }
