@@ -10,6 +10,8 @@ public class CardView : MonoBehaviour
     private Image cardRenderer;
     private bool _FaceUp;
 
+    private Sprite CardBack { get { return faces.cardBack; } }
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -18,15 +20,14 @@ public class CardView : MonoBehaviour
 
     private void Start()
     {
-        currentFace = faces.cardBack;
-        cardRenderer.sprite = currentFace;
+       
     }
 
     public void ToggleFaceUp()
     {
         if (_FaceUp)
         {
-            cardRenderer.sprite = faces.cardBack;
+            cardRenderer.sprite = CardBack;
             _FaceUp = false;
         }
         else
@@ -39,14 +40,7 @@ public class CardView : MonoBehaviour
     public void SetFaceUp(bool set)
     {
         _FaceUp = set;
-        if (_FaceUp)
-        {
-            cardRenderer.sprite = currentFace;
-        }
-        else
-        {
-            cardRenderer.sprite = faces.cardBack;
-        }
+        cardRenderer.sprite = set ? currentFace : CardBack;
     }
 
     public void SetFace(CardFace face, CardSuit suit)

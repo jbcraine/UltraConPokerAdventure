@@ -47,6 +47,8 @@ public class CommunityPoolView : MonoBehaviour
         {
             _PoolCards[i].SetFace(cards[i].face, cards[i].suit);
         }
+
+        HideCards();
     }
 
     //Create a CardView for each hand card
@@ -66,8 +68,6 @@ public class CommunityPoolView : MonoBehaviour
 
     private void RevealCards(int amount)
     {
-        Debug.Log(_RevealedCards);
-        Debug.Log(_PoolCards);
         if (_RevealedCards >= _PoolCards.Count)
             return;
 
@@ -76,6 +76,11 @@ public class CommunityPoolView : MonoBehaviour
         {
             _PoolCards[_RevealedCards].SetFaceUp(true);
         }
+    }
+
+    private void HideCards()
+    {
+        _PoolCards.ForEach(card => card.SetFaceUp(false));
     }
 
     private void ClearCards()
