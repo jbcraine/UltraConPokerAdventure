@@ -9,14 +9,16 @@ public class HandView : MonoBehaviour
     [SerializeField]
     private List<CardView> _HandCards;
     [SerializeField]
-    private int RandomTilt = 0;
+    private float RandomTilt = 0;
     private HorizontalLayoutGroup layout;
 
+    private float RandomTiltAmount { get { return Random.Range(-RandomTilt, RandomTilt); } }
 
     private void Awake()
     {
         layout = GetComponent<HorizontalLayoutGroup>();
     }
+
 
     private void TiltCards()
     {
@@ -51,7 +53,12 @@ public class HandView : MonoBehaviour
             _HandCards[i].SetFace(cards[i].face, cards[i].suit);
             _HandCards[i].SetFaceUp(true);
         }
+
+        _HandCards.ForEach(card => {
+            card.transform.Rotate(new Vector3(0, 0, RandomTiltAmount));
+        });
     }
+
 
     //Create a CardView for each hand card
     private void InstantiateCardViews(int amount)
